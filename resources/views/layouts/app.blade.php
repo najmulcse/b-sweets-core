@@ -167,6 +167,19 @@
                     </div>
                     <hr>
                 </li>
+                @if(Auth::user()->user_type ==='super_admin')
+                  <li>
+                      <button class="btn btn-success btn-block">New Restaurant
+                          <i class="mdi mdi-plus"></i>
+                      </button>
+                  </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('restaurants.list') }}">
+                        <i class="menu-icon mdi mdi-television"></i>
+                        <span class="menu-title">Restaurants List</span>
+                    </a>
+                </li>
+                @else
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/') }}">
                         <i class="menu-icon mdi mdi-television"></i>
@@ -179,6 +192,7 @@
                         <span class="menu-title">Menu Categories</span>
                     </a>
                 </li>
+                @endif
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="menu-icon mdi mdi-backup-restore"></i>

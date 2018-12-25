@@ -30,6 +30,16 @@ Route::get('/', 'HomeController@index')->name('home');
 //Dashboard
 Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
 
+
+//Restaurant
 Route::group(['namespace' => 'Restaurants'], function(){
     Route::get('categories', 'RestaurantController@getCategories')->name('categories');
 });
+
+
+//super admin
+
+Route::group(['namespace' => 'SuperAdmin'], function(){
+    Route::get('restaurants-list', 'SuperRestaurantController@getRestaurants')->name('restaurants.list');
+});
+
