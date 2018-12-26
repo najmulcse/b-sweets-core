@@ -29,7 +29,7 @@
 
 <body>
 <div class="container-scroller">
-    <!-- partial:partials/_navbar.html -->
+    <!-- top navbar start-->
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
             <h2 >
@@ -47,7 +47,7 @@
                     <i class="fa-bell"></i>
                     <li  class="nav-item dropdown d-none d-xl-inline-block">
                         <a  class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                            <span class="profile-text">Notifications</span>
+                            <span class="profile-text">{{ Auth::user()->name }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                             <a class="dropdown-item p-0">
@@ -89,11 +89,11 @@
             </button>
         </div>
     </nav>
-    <!-- partial -->
+    <!-- top navbar end -->
     <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_sidebar.html -->
         @if(!Auth::guest())
-            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <nav class="sidebar sidebar-offcanvas position-fixed" id="sidebar">
             <ul class="nav">
                 <li class="nav-item nav-profile">
                     <div class="nav-link">
@@ -113,13 +113,13 @@
                     <hr>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ url('/') }}">
                         <i class="menu-icon mdi mdi-television"></i>
                         <span class="menu-title">Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('categories') }}">
                         <i class="menu-icon mdi mdi-box"></i>
                         <span class="menu-title">Menu Categories</span>
                     </a>
@@ -132,8 +132,8 @@
                 </li>
             </ul>
         </nav>
-            <div class="main-panel">
-                <div class="content-wrapper">
+            <div class="main-panel ml-auto">
+                <div class="content-wrapper ">
                     @yield('content')
                 </div>
             </div>
