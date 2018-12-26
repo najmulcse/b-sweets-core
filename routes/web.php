@@ -10,13 +10,35 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+//Auth routes
+Route::group(['namespace' => 'Auth'], function () {
+    // Authentication Routes...
+    Route::get('login', 'LoginController@showLoginForm')->name('login');
+    Route::post('login', 'LoginController@login');
+    Route::post('logout', 'LoginController@logout')->name('logout');
 
-Route::get('/', function () {
-    return view('home');
+    // Password Reset Routes...
+    Route::get('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.request');
+    Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
+    Route::post('password/reset', 'ResetPasswordController@reset');
+
+});
+Route::get('/', 'HomeController@index')->name('home');
+
+//Dashboard
+Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
+
+
+//Restaurant
+Route::group(['namespace' => 'Restaurants'], function(){
+    Route::get('categories', 'CategoryController@getCategories')->name('categories');
 });
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//super admin
 
-Route::get('/categories', 'Restaurants\CategoryController@getCategories')->name('categories');
+Route::group(['namespace' => 'SuperAdmin'], function(){
+    Route::get('restaurants-list', 'SuperRestaurantController@getRestaurants')->name('restaurants.list');
+});
+

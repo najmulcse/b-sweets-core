@@ -30,23 +30,78 @@
 <body>
 <div class="container-scroller">
     <!-- top navbar start-->
-    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-        <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-            <h2 >
-                <a class="navbar-brand pt-3" href="#">Bombay</a>
+    <nav class="navbar bg-white default-layout d-xs-none col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center d-xs-none navbar-brand-wrapper d-flex align-items-top justify-content-center">
+            <h2 class="d-xs-none">
+                <a class="navbar-brand pt-3" href="{{ url('/') }}">Bombay</a>
             </h2>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center">
-            <div class="pull-left p-2 d-xs-none">
-                <input style="border:solid 1px orange; border-radius: 15px; padding: 5px;" type="text" placeholder="Search...">
-            </div>
-            @if (Auth::guest())
-                <li class="animated fadeIn navbar-nav navbar-nav-right"><a href="{{ route('login') }}">Login</a></li>
-            @else
-                <ul style="border-radius: 50px; height: 35px; text-autospace:punctuation; color:white; background-color: #ff6a00bd" class="navbar-nav navbar-nav-right">
-                    <i class="fa-bell"></i>
-                    <li  class="nav-item dropdown d-none d-xl-inline-block">
-                        <a  class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                @if (!Auth::guest())
+                    <ul class="navbar-nav navbar-nav-left d-xs-none">
+                        <div class="pull-left p-2">
+                            <input style="border:solid 1px orange; border-radius: 15px; padding: 5px;" type="text" placeholder="Search...">
+                        </div>
+                    </ul>
+                @endif
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item dropdown">
+                            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+                                <i class="mdi mdi-bell"></i>
+                                <span class="count">4</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                                <a class="dropdown-item">
+                                    <p class="mb-0 font-weight-normal float-left">You have 4 new notifications
+                                    </p>
+                                    <span class="badge badge-pill badge-warning float-right">View all</span>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item preview-item">
+                                    <div class="preview-thumbnail">
+                                        <div class="preview-icon bg-success">
+                                            <i class="mdi mdi-alert-circle-outline mx-0"></i>
+                                        </div>
+                                    </div>
+                                    <div class="preview-item-content">
+                                        <h6 class="preview-subject font-weight-medium text-dark">Application Error</h6>
+                                        <p class="font-weight-light small-text">
+                                            Just now
+                                        </p>
+                                    </div>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item preview-item">
+                                    <div class="preview-thumbnail">
+                                        <div class="preview-icon bg-warning">
+                                            <i class="mdi mdi-comment-text-outline mx-0"></i>
+                                        </div>
+                                    </div>
+                                    <div class="preview-item-content">
+                                        <h6 class="preview-subject font-weight-medium text-dark">Settings</h6>
+                                        <p class="font-weight-light small-text">
+                                            Private message
+                                        </p>
+                                    </div>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item preview-item">
+                                    <div class="preview-thumbnail">
+                                        <div class="preview-icon bg-info">
+                                            <i class="mdi mdi-email-outline mx-0"></i>
+                                        </div>
+                                    </div>
+                                    <div class="preview-item-content">
+                                        <h6 class="preview-subject font-weight-medium text-dark">New user registration</h6>
+                                        <p class="font-weight-light small-text">
+                                            2 days ago
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        </li>
+                    <li  class="nav-item dropdown  d-xl-inline-block">
+                        <a  style="border-radius: 50px; padding:6px 26px 28px 72px; height: 35px; text-autospace:punctuation; color:white; background-color: #ff6a00bd" class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                             <span class="profile-text">{{ Auth::user()->name }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
@@ -83,7 +138,7 @@
                         </div>
                     </li>
                 </ul>
-            @endif
+
             <button class="bg-twitter navbar-toggler navbar-toggler-left d-lg-none align-self-center" type="button" data-toggle="offcanvas">
                 <span class="mdi mdi-menu"></span>
             </button>
@@ -103,7 +158,7 @@
                             </div>
                         </div>
                         <div class="text-wrapper">
-                            <p class="profile-name">Mohammad Rabanni</p>
+                            <p class="profile-name">{{ Auth::user()->name }}</p>
                             <div class="text-center">
                                 <small class="designation text-muted">Manager</small>
                                 <span class="status-indicator online"></span>
@@ -112,6 +167,19 @@
                     </div>
                     <hr>
                 </li>
+                @if(Auth::user()->user_type ==='super_admin')
+                  <li>
+                      <button class="btn btn-success btn-block">New Restaurant
+                          <i class="mdi mdi-plus"></i>
+                      </button>
+                  </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('restaurants.list') }}">
+                        <i class="menu-icon mdi mdi-television"></i>
+                        <span class="menu-title">Restaurants List</span>
+                    </a>
+                </li>
+                @else
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/') }}">
                         <i class="menu-icon mdi mdi-television"></i>
@@ -119,11 +187,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('categories') }}">
+                    <a class="nav-link" id="bs-categories" href="{{ route('categories') }}">
                         <i class="menu-icon mdi mdi-box"></i>
                         <span class="menu-title">Menu Categories</span>
                     </a>
                 </li>
+                @endif
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="menu-icon mdi mdi-backup-restore"></i>
@@ -132,11 +201,12 @@
                 </li>
             </ul>
         </nav>
-            <div class="main-panel ml-auto">
-                <div class="content-wrapper ">
-                    @yield('content')
-                </div>
+
+        <div class="main-panel ml-auto">
+            <div class="content-wrapper">
+                @yield('content')
             </div>
+        </div>
          @else
             <div class="content-wrapper">
                 @yield('content')
