@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Restaurants;
 //use ApiCurlRequest;
 //use App\Http\Controllers\Api\ApiCurlRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Ixudra\Curl\Facades\Curl;
 
 class CategoryController extends Controller
@@ -33,4 +35,33 @@ class CategoryController extends Controller
         return view('categories.index',compact('categories'));
     }
 
+    public function store(Request $request)
+    {
+
+        $categoryStoringUrl = 'http://mccltd.info/projects/bombay-sweets/api/api/store_category';
+        $headers = array(
+            'secret_key' => config('api.secret_key'),
+            'name' => $request->input('name'),
+            'restaurant_id' => Auth::user()->restaurant_id
+        );
+        $response = Curl::to($categoryStoringUrl)
+            ->withFile('file', $request->file('icon'))
+            ->withData( $headers )
+            ->post();
+
+        return response()->json($response, 200);
+    }
+//    function curlRequest($requestUrl, $headers)
+//    {
+//        $url = curl_init($requestUrl);
+//
+//        curl_setopt($url, CURLOPT_POST, true );
+//        curl_setopt($url, CURLOPT_POSTFIELDS, $headers);
+//        curl_setopt($url, CURLOPT_SSL_VERIFYHOST, false);
+//        curl_setopt($url, CURLOPT_SSL_VERIFYPEER, false);
+//        curl_setopt($url, CURLOPT_RETURNTRANSFER, true);
+//        $postResult = curl_exec($url);
+//        curl_close($url);
+//        return json_decode($postResult, true);
+//    }
 }

@@ -11,20 +11,20 @@ window.Vue = require('vue');
 
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
 
 Vue.use(BootstrapVue);
 
-
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+//components
 Vue.component('example', require('./components/Example.vue'));
-
 Vue.component('add-more-category', require('./components/categories/AddMoreCategory.vue'));
 
 const app = new Vue({

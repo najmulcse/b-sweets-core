@@ -23,8 +23,8 @@ class UsersTableSeeder extends Seeder
         ],
             [
             'name' => 'Restaurant Admin',
-            'email' => 'restaurant.admin@gmail.com',
-            'password' => bcrypt('restaurant.admin'),
+            'email' => 'r1.admin@gmail.com',
+            'password' => bcrypt('r1.admin'),
             'user_type' => 'admin',
             'restaurant_id' => 1,
 

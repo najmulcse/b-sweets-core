@@ -15,7 +15,7 @@
             <div class="d-block">
                 <label for="name">Name:</label> {{ url }}
                 <b-form-input id="inputLive"
-                              v-model.trim="name"
+                              v-model.trim="categoryName"
                               type="text"
                               :state="nameState"
                               aria-describedby="inputLiveHelp inputLiveFeedback"
@@ -25,12 +25,10 @@
                     Enter at least 3 letters
                 </b-form-invalid-feedback>
                 <label for="icon">Icon:</label>
-                <b-form-file
-                        accept="image/*"
-                        style="cursor: pointer"
-                        ref="categoryIcon"
-                        v-model="iconFile" :state="Boolean(iconFile)"
-                        placeholder="Choose a file..."></b-form-file>
+                <input type="file" class="" id="customFile"
+                       name="upload report" ref="file"
+                       @change="changeTitle"
+                >
 
             </div>
             <div class="pt-2 pull-right">
@@ -48,7 +46,7 @@
         props: ['url'],
         data(){
           return {
-              name: '',
+              categoryName: '',
               iconFile: null,
               isSubmit: false,
           }
@@ -57,7 +55,7 @@
 
             isSubmit()
                 {
-                    if(this.name.length > 2 && this.icon != null){
+                    if(this.categoryName.length > 2 && this.iconFile != null){
                         this.isSubmit = true;
                     }
                 }
@@ -68,33 +66,37 @@
             },
             hideModal () {
                 this.$refs.myModalRef.hide()
-                this.name = '';
+                this.categoryName = '';
                 this.iconFile = null;
+            },
+            changeTitle() {
+                this.iconFile = this.$refs.file.files[0];
             },
             submit()
             {
                 this.isSubmit = true;
 
-                console.log(this.url)
-                if(this.name.length && this.icon.length)
-                {
-
-                    axios.post(this.url)
-                        .then(response => {
-
-                        })
-                        .cache(response => {
-
-                        });
+                if(this.$refs.file.files.length> 0){
+                    this.iconFile = this.$refs.file.files[0];
                 }
+                let formData = new FormData();
+                formData.append('name', this.categoryName);
+                formData.append('icon', this.iconFile);
+                axios.post(this.url, formData,{headers: {'Content-Type': 'multipart/form-data'}})
+                    .then(response => {
+                        console.log(response.data);
+                        this.hideModal();
+                    })
+                    .catch(response => {
+                        console.log(response.data);
+                    });
             }
         },
         computed:
         {
-
             nameState()
             {
-                return this.name.length >2 ? true : false;
+                return this.categoryName.length >2 ? true : false;
             },
         }
     }

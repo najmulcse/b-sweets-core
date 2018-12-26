@@ -33,6 +33,8 @@ Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
 //Restaurant
 Route::group(['namespace' => 'Restaurants'], function(){
     Route::get('categories', 'CategoryController@getCategories')->name('categories');
+    Route::post('store_category', 'CategoryController@store')->name('store.category');
+
 });
 
 

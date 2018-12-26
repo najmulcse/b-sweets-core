@@ -27,7 +27,7 @@
         @endif
             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
                 <add-more-category
-                url="{{ route('categories') }}"
+                url="{{ route('store.category') }}"
                 >
                 </add-more-category>
             </div>
