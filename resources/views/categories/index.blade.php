@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="row pb-1">
+        <div class="pull-left col-2">
+            <button class="btn btn-success btn-block">Add category
+                <i class="mdi mdi-plus"></i>
+            </button>
+        </div>
+    </div>
     <div class="row">
         @if(count($categories) > 0)
             @foreach($categories as $category)
@@ -18,7 +25,12 @@
                 No categories found!
             </h2>
         @endif
-
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+                <add-more-category
+                url="{{ route('categories') }}"
+                >
+                </add-more-category>
+            </div>
     </div>
 @stop
 

@@ -27,8 +27,8 @@
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" />
 </head>
 
-<body>
-<div class="container-scroller">
+<body >
+<div id="app" class="container-scroller">
     <!-- top navbar start-->
     <nav class="navbar bg-white default-layout d-xs-none col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center d-xs-none navbar-brand-wrapper d-flex align-items-top justify-content-center">

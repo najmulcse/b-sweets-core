@@ -20,7 +20,7 @@
 </head>
 
 <body>
-<div class="container-scroller">
+<div id="app"  class="container-scroller">
    @yield('content')
     <!-- page-body-wrapper ends -->
 </div>
