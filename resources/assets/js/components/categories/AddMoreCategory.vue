@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-button @click="showModal">
+        <button @click="showModal">
             <div class="card">
                 <img class="card-img-top" height="170px;" src="http://www.biryanicentre.com.pk/images/deals/deal-2.jpg" alt="Card image cap">
 
@@ -8,12 +8,12 @@
                     <p class="card-text text-center text-black">Add More</p>
                 </div>
             </div>
-        </b-button>
+        </button>
 
 
         <b-modal ref="myModalRef" hide-footer title="Add Category" class="ql-bg-orange">
             <div class="d-block">
-                <label for="name">Name:</label> {{ url }}
+                <label for="name">Name:</label>
                 <b-form-input id="inputLive"
                               v-model.trim="categoryName"
                               type="text"
@@ -32,8 +32,17 @@
 
             </div>
             <div class="pt-2 pull-right">
-                <b-button class="pl-5 pr-5" type="reset" @click="hideModal" variant="danger">Cancel</b-button>
-                <b-button class="pl-5 pr-5"  @click="submit" type="button" variant="success">Save</b-button>
+                <b-button
+                        class="pl-5 pr-5"
+                        type="reset"
+                        @click="hideModal"
+                        variant="danger">Cancel</b-button>
+                <b-button
+                        class="pl-5 pr-5"
+                        @click="submit"
+                        :class="isSubmit ? 'disabled': '' "
+                        type="button"
+                        variant="success">{{ isSubmit ? 'Saving...': 'Save'}}</b-button>
             </div>
         </b-modal>
 
@@ -86,6 +95,7 @@
                     .then(response => {
                         console.log(response.data);
                         this.hideModal();
+                       // window.location.reload();
                     })
                     .catch(response => {
                         console.log(response.data);

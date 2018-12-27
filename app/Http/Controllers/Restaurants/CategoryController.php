@@ -44,24 +44,18 @@ class CategoryController extends Controller
             'name' => $request->input('name'),
             'restaurant_id' => Auth::user()->restaurant_id
         );
+        $image = $request->file('icon');
+
+        $imagePath = $image->getPathname();
+        $imageType = $image->getMimeType();
+        $imageName  = $image->getClientOriginalName();
+
         $response = Curl::to($categoryStoringUrl)
-            ->withFile('file', $request->file('icon'))
             ->withData( $headers )
+            ->withFile('image',$imagePath, $imageType, $imageName)
             ->post();
 
         return response()->json($response, 200);
     }
-//    function curlRequest($requestUrl, $headers)
-//    {
-//        $url = curl_init($requestUrl);
-//
-//        curl_setopt($url, CURLOPT_POST, true );
-//        curl_setopt($url, CURLOPT_POSTFIELDS, $headers);
-//        curl_setopt($url, CURLOPT_SSL_VERIFYHOST, false);
-//        curl_setopt($url, CURLOPT_SSL_VERIFYPEER, false);
-//        curl_setopt($url, CURLOPT_RETURNTRANSFER, true);
-//        $postResult = curl_exec($url);
-//        curl_close($url);
-//        return json_decode($postResult, true);
-//    }
+
 }
