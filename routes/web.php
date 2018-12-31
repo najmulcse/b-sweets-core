@@ -15,6 +15,7 @@ Route::group(['namespace' => 'Auth'], function () {
     // Authentication Routes...
     Route::get('login', 'LoginController@showLoginForm')->name('login');
     Route::post('login', 'LoginController@login');
+    Route::get('register','RegisterController@showRegistrationForm')->name('register');
     Route::post('logout', 'LoginController@logout')->name('logout');
 
     // Password Reset Routes...
@@ -27,20 +28,27 @@ Route::group(['namespace' => 'Auth'], function () {
 Route::get('/', 'HomeController@index')->name('home');
 
 //Dashboard
-Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
+Route::group(['middleware' => 'auth'], function(){
+
+    Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
+});
 
 
-//Restaurant
+//Restaurant routes...
 Route::group(['namespace' => 'Restaurants'], function(){
+    //New restaurant account creating (super admin)..
+    Route::post('restaurant/create', 'RegisterController@ajaxCreateTempAccount')->name('create.temp.restaurant');
+
+    // Categories...
     Route::get('categories', 'CategoryController@getCategories')->name('categories');
     Route::post('store_category', 'CategoryController@store')->name('store.category');
 
 });
 
 
-//super admin
+//super admin route...
 
 Route::group(['namespace' => 'SuperAdmin'], function(){
     Route::get('restaurants-list', 'SuperRestaurantController@getRestaurants')->name('restaurants.list');
+    Route::get('restaurants/pending-list', 'SuperRestaurantController@getPendingRestaurants')->name('restaurants.pending.list');
 });
-
