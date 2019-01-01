@@ -26,6 +26,11 @@ Vue.use(BootstrapVue);
 //components
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('add-more-category', require('./components/categories/AddMoreCategory.vue'));
+Vue.component('add-new-restaurant', require('./components/restaurants/AddNewRestaurant.vue'));
+
+//Registration process
+
+Vue.component('registration-form', require('./components/restaurants/auth/RegistrationForm.vue'));
 
 const app = new Vue({
     el: '#app'

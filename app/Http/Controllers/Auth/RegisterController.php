@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\TempAccount;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -14,7 +16,7 @@ class RegisterController extends Controller
     | Register Controller
     |--------------------------------------------------------------------------
     |
-    | This controller handles the registration of new users as well as their
+    | This controller handles the registration of new restaurants as well as their
     | validation and creation. By default this controller uses a trait to
     | provide this functionality without requiring any additional code.
     |
@@ -23,7 +25,7 @@ class RegisterController extends Controller
     use RegistersUsers;
 
     /**
-     * Where to redirect users after registration.
+     * Where to redirect restaurants after registration.
      *
      * @var string
      */
@@ -39,6 +41,31 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function showRegistrationForm(Request $request)
+    {
+        $email = $request->input('email');
+        $token = $request->input('token');
+        $message = "Sorry, Page not found";
+        if(isset($email) && isset($token)){
+            $user = TempAccount::where('email', $email)
+                                    ->where('access_token','=', $token)
+                                    ->first();
+
+            if(is_null($user))
+            {
+
+                $message = "Access denied! Your token is not matched, Please contact with Bombay sweets team.";
+                return view('errors.registration_form', compact('message'));
+            }
+            if($user->is_register){
+
+                $message = "Already register. Please login to access your account";
+                return view('errors.registration_form',compact('message'));
+            };
+            return view('auth.register', compact('user'));
+        }
+        return view('errors.registration_form', compact('message'));
+    }
     /**
      * Get a validator for an incoming registration request.
      *
@@ -49,7 +76,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:restaurants',
             'password' => 'required|string|min:6|confirmed',
         ]);
     }

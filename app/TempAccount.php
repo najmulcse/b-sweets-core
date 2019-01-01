@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class TempAccount extends Model
 {
-    protected $table = "temp_account";
+    protected $table = "temp_accounts";
 }

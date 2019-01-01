@@ -10,6 +10,7 @@ namespace App\Http\Controllers\SuperAdmin;
 
 
 use App\Http\Controllers\Controller;
+use App\TempAccount;
 
 class SuperRestaurantController extends Controller
 {
@@ -22,6 +23,14 @@ class SuperRestaurantController extends Controller
     {
 
         return view('restaurants.index');
+    }
+
+    public function getPendingRestaurants()
+    {
+        $pendingRestaurants = TempAccount::where('is_register', false)
+                                            ->latest()
+                                            ->get();
+        return view('restaurants.pending_restaurants_list', compact('pendingRestaurants'));
     }
 
 }
