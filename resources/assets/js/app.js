@@ -11,11 +11,13 @@ window.Vue = require('vue');
 
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
+import VeeValidate from 'vee-validate';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
 Vue.use(BootstrapVue);
+Vue.use(VeeValidate);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

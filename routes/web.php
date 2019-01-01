@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth'], function(){
 
 
 //Restaurant routes...
-Route::group(['namespace' => 'Restaurants'], function(){
+Route::group(['namespace' => 'Restaurants','middleware' => 'auth'], function(){
     //New restaurant account creating (super admin)..
     Route::post('restaurant/create', 'RegisterController@ajaxCreateTempAccount')->name('create.temp.restaurant');
 

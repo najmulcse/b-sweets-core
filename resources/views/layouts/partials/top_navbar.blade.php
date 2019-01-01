@@ -5,12 +5,12 @@
         </h2>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-center">
-        @if(Auth::user()->type ==='super_admin')
+        @if(Auth::user()->user_type ==='super_admin')
             <add-new-restaurant
                 url="{{ route('create.temp.restaurant') }}">
             </add-new-restaurant>
         @endif
-    @if (!Auth::guest())
+        @if (!Auth::guest())
             <ul class="navbar-nav navbar-nav-left d-xs-none">
                 <div class="pull-left p-2">
                     <input style="border:solid 1px orange; border-radius: 15px; padding: 5px;" type="text" placeholder="Search...">

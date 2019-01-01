@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="container-fluid p-0 page-body-wrapper full-page-wrapper auth-page">
-        <div class="content-wrapper p-0 d-flex align-items-center auth auth-bg-1 theme-one">
+        <div class="content-wrapper">
             <div class="row w-100">
-                <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
+                <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12 mx-auto">
                    <registration-form
 
                         url="'{{ route('register') }}'"

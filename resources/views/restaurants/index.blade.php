@@ -8,6 +8,7 @@
                 <img class="card-img-top" height="170px;" src="http://www.biryanicentre.com.pk/images/deals/deal-2.jpg" alt="Card image cap">
                 <div class="card-body p-2">
                     <p class="card-text text-center">KFC</p>
+                    <input type="checkbox" checked data-toggle="toggle" data-on="Ready" data-off="Not Ready" data-onstyle="success" data-offstyle="danger">
                 </div>
             </div>
         </div>
