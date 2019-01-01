@@ -63656,7 +63656,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.post(this.url, formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(function (response) {
                 console.log(response.data);
                 _this.hideModal();
-                // window.location.reload();
+                window.location.reload();
             }).catch(function (response) {
                 console.log(response.data);
             });
@@ -63680,7 +63680,24 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("button", { on: { click: _vm.showModal } }, [_vm._m(0)]),
+      _c("b-button", { on: { click: _vm.showModal } }, [
+        _c("div", { staticClass: "card" }, [
+          _c("img", {
+            staticClass: "card-img-top",
+            attrs: {
+              height: "170px;",
+              src: "http://www.biryanicentre.com.pk/images/deals/deal-2.jpg",
+              alt: "Card image cap"
+            }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body p-2" }, [
+            _c("p", { staticClass: "card-text text-center text-black" }, [
+              _vm._v("Add More")
+            ])
+          ])
+        ])
+      ]),
       _vm._v(" "),
       _c(
         "b-modal",
@@ -63772,29 +63789,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card" }, [
-      _c("img", {
-        staticClass: "card-img-top",
-        attrs: {
-          height: "170px;",
-          src: "http://www.biryanicentre.com.pk/images/deals/deal-2.jpg",
-          alt: "Card image cap"
-        }
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body p-2" }, [
-        _c("p", { staticClass: "card-text text-center text-black" }, [
-          _vm._v("Add More")
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button @click="showModal">
+        <b-button @click="showModal">
             <div class="card">
                 <img class="card-img-top" height="170px;" src="http://www.biryanicentre.com.pk/images/deals/deal-2.jpg" alt="Card image cap">
 
@@ -8,7 +8,7 @@
                     <p class="card-text text-center text-black">Add More</p>
                 </div>
             </div>
-        </button>
+        </b-button>
 
 
         <b-modal ref="myModalRef" hide-footer title="Add Category" class="ql-bg-orange">
@@ -95,7 +95,7 @@
                     .then(response => {
                         console.log(response.data);
                         this.hideModal();
-                       // window.location.reload();
+                        window.location.reload();
                     })
                     .catch(response => {
                         console.log(response.data);
