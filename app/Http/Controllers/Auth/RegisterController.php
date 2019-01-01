@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
+use Ixudra\Curl\Facades\Curl;
 class RegisterController extends Controller
 {
     /*
@@ -94,5 +94,33 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    public function registerRestaurant(Request $request)
+    {
+        $restaurantStoringUrl = 'http://localhost:8000/api/register';
+       // $restaurantStoringUrl = 'http://mccltd.info/projects/bombay-sweets/api/api/register';
+
+        $headers = array(
+            'secret_key' => config('api.secret_key'),
+            'name' => $request->input('name'),
+            'phone' => $request->input('phone'),
+            'address' => $request->input('address'),
+            'latitude' => $request->input('latitude'),
+            'longitude' => $request->input('longitude'),
+            'open' => $request->input('open'),
+            'close' => $request->input('close'),
+            'price_range' => $request->input('price_range'),
+            'user_type' => $request->input('user_type')
+
+        );
+
+        $response = Curl::to($restaurantStoringUrl)
+            ->withData( $headers )
+            ->asJson()
+            ->post();
+
+        return response()->json($response, 200);
+
     }
 }
