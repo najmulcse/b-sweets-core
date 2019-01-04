@@ -26,7 +26,9 @@ Vue.use(VueGoogleMaps, {
     }
 });
 Vue.use(BootstrapVue);
-Vue.use(VeeValidate);
+Vue.use(VeeValidate,{
+    events: 'input|change|blur',
+});
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

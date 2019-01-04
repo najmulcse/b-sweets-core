@@ -98,12 +98,15 @@ class RegisterController extends Controller
 
     public function registerRestaurant(Request $request)
     {
-        $restaurantStoringUrl = 'http://localhost:8000/api/register';
+
+        $restaurantStoringUrl = 'http://localhost:8000/api/register-restaurant';
        // $restaurantStoringUrl = 'http://mccltd.info/projects/bombay-sweets/api/api/register';
 
         $headers = array(
             'secret_key' => config('api.secret_key'),
             'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
             'phone' => $request->input('phone'),
             'address' => $request->input('address'),
             'latitude' => $request->input('latitude'),
@@ -114,10 +117,15 @@ class RegisterController extends Controller
             'user_type' => $request->input('user_type')
 
         );
+        $thumbnail = $request->file('thumbnail');
+        $imagePath = $thumbnail->getPathname();
+        $imageType = $thumbnail->getMimeType();
+        $imageName  = $thumbnail->getClientOriginalName();
 
+        // dd($headers);
         $response = Curl::to($restaurantStoringUrl)
             ->withData( $headers )
-            ->asJson()
+            ->withFile('thumbnail',$imagePath, $imageType, $imageName)
             ->post();
 
         return response()->json($response, 200);

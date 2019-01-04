@@ -21862,7 +21862,9 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_5_vue2
     }
 });
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_bootstrap_vue__["a" /* default */]);
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_2_vee_validate__["a" /* default */]);
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_2_vee_validate__["a" /* default */], {
+    events: 'input|change|blur'
+});
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -98774,7 +98776,7 @@ exports = module.exports = __webpack_require__(7)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -98785,6 +98787,8 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -99702,13 +99706,91 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['url', 'user'],
+    props: ['url', 'email'],
     components: {
         GoogleMap: __WEBPACK_IMPORTED_MODULE_0__plugins_maps_GoogleMap_vue___default.a,
         CloseHour: __WEBPACK_IMPORTED_MODULE_1__plugins_times_CloseHour_vue___default.a,
@@ -99719,65 +99801,75 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             step: 1,
             submitting: false,
             name: '',
+            password: '',
             thumbnail: '',
             location: '',
             phone: '',
             address: '',
             price_range: '',
-            open: '',
-            close: '',
+            open: '9AM',
+            close: '10PM',
             is_parking: 0,
-            is_delivery: false,
-            is_kids_corner: false,
-            is_smoking_zone: false,
-            is_wifi: false,
-            is_buffet: false,
-            center: {
-                latitude: 0,
-                longitude: 0
-            }
+            is_delivery: 0,
+            is_kids_corner: 0,
+            is_smoking_zone: 0,
+            is_wifi: 0,
+            is_buffet: 0,
+            latitude: 0,
+            longitude: 0
         };
     },
 
     methods: {
         next: function next() {
-            this.step = 2;
-        },
-        getGeoLocation: function getGeoLocation(position) {
-            this.center = position;
-            this.address = this.center.address.formatted_address;
-            console.log(this.center.lat);
-        },
-        submit: function submit() {
             var _this = this;
 
             this.$validator.validate().then(function (result) {
                 if (result) {
-                    console.log(_this.url);
-                    _this.submitting = true;
+                    _this.step++;
+                }
+            });
+        },
+        getGeoLocation: function getGeoLocation(position) {
+            this.center = position;
+            this.address = this.center.address;
+            this.latitude = this.center.lat;
+            this.longitude = this.center.lng;
+            console.log(this.center.lat);
+            console.log(this.email);
+        },
+        submit: function submit() {
+            var _this2 = this;
+
+            this.$validator.validate().then(function (result) {
+                if (result) {
+                    console.log(_this2.url);
+                    _this2.submitting = true;
                     var formData = new FormData();
-                    formData.append('name', _this.name);
-                    formData.append('phone', _this.phone);
-                    formData.append('address', _this.address);
-                    formData.append('latitude', _this.center.latitude);
-                    formData.append('longitude', _this.center.longitude);
-                    formData.append('price_range', _this.price_range);
-                    formData.append('thumbnail', _this.thumbnail);
-                    formData.append('open', _this.open);
-                    formData.append('close', _this.close);
+                    formData.append('name', _this2.name);
+                    formData.append('email', _this2.email);
+                    formData.append('password', _this2.password);
+                    formData.append('phone', _this2.phone);
+                    formData.append('address', _this2.address);
+                    formData.append('latitude', _this2.latitude);
+                    formData.append('longitude', _this2.longitude);
+                    formData.append('price_range', _this2.price_range);
+                    formData.append('thumbnail', _this2.thumbnail);
+                    formData.append('open', _this2.open);
+                    formData.append('close', _this2.close);
                     formData.append('user_type', 'admin');
 
-                    axios.post(_this.url, formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(function (response) {
-                        console.log(response);
+                    axios.post(_this2.url, formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(function (response) {
+                        console.log(JSON.parse(response.data));
                     }).catch(function (errors) {});
-                    _this.submitting = false;
+                    _this2.submitting = false;
                 }
             });
         },
         back: function back() {
-            this.step = 1;
+            this.step--;
         },
-        changeTitle: function changeTitle() {
+        changeThumbnail: function changeThumbnail() {
             this.thumbnail = this.$refs.file.files[0];
         }
     }
@@ -99870,6 +99962,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "GoogleMap",
@@ -99877,10 +99972,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             // default to Montreal to keep it simple
             // change this to whatever makes sense
-            center: { lat: 45.508, lng: -73.587, address: '' },
+            center: { lat: 45.508, lng: -73.587, address: "" },
             markers: [],
             places: [],
-            currentPlace: null
+            currentPlace: ""
         };
     },
     mounted: function mounted() {
@@ -99949,12 +100044,19 @@ var render = function() {
               }
             ],
             staticClass: "form-control border",
-            class: { "is-invalid": _vm.errors.has("location") },
+            class: { "is-invalid": _vm.errors.has("address") },
             attrs: {
-              name: "location",
+              name: "address",
               placeholder: "Enter restaurant location"
             },
-            on: { place_changed: _vm.setPlace, change: _vm.addMarker }
+            on: { place_changed: _vm.setPlace },
+            model: {
+              value: _vm.center.address,
+              callback: function($$v) {
+                _vm.$set(_vm.center, "address", $$v)
+              },
+              expression: "center.address"
+            }
           }),
           _vm._v(" "),
           _c("span", [
@@ -99967,7 +100069,17 @@ var render = function() {
               },
               [_vm._v("Search")]
             )
-          ])
+          ]),
+          _vm._v(" "),
+          _vm.errors.has("address")
+            ? _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(
+                  "\n            " +
+                    _vm._s(_vm.errors.first("address")) +
+                    "\n        "
+                )
+              ])
+            : _vm._e()
         ],
         1
       ),
@@ -100508,14 +100620,146 @@ var render = function() {
                       },
                       [
                         _c("input", {
+                          directives: [
+                            {
+                              name: "validate",
+                              rawName: "v-validate",
+                              value: "required",
+                              expression: "'required'"
+                            }
+                          ],
                           ref: "file",
+                          staticClass: "form-control border",
+                          class: { "is-invalid": _vm.errors.has("thumbnail") },
                           attrs: {
                             type: "file",
+                            accept: "*/image*",
                             id: "customFile",
-                            name: "upload report"
+                            name: "thumbnail"
                           },
-                          on: { change: _vm.changeTitle }
-                        })
+                          on: { change: _vm.changeThumbnail }
+                        }),
+                        _vm._v(" "),
+                        _vm.errors.has("thumbnail")
+                          ? _c("div", { staticClass: "invalid-feedback" }, [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(_vm.errors.first("thumbnail")) +
+                                  "\n                        "
+                              )
+                            ])
+                          : _vm._e()
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-row" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "form-group col-md-6 col-sm-6 col-lg-6  col-xs-12"
+                      },
+                      [
+                        _c("div", { staticClass: "input-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "validate",
+                                rawName: "v-validate",
+                                value: "required",
+                                expression: "'required'"
+                              },
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.email,
+                                expression: "email"
+                              }
+                            ],
+                            staticClass: "form-control border",
+                            class: { "is-invalid": _vm.errors.has("email") },
+                            attrs: {
+                              name: "email",
+                              type: "email",
+                              disabled: "",
+                              placeholder: "Email"
+                            },
+                            domProps: { value: _vm.email },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.email = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.has("email")
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(_vm.errors.first("email")) +
+                                    "\n                            "
+                                )
+                              ])
+                            : _vm._e()
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "form-group col-md-6 col-sm-6 col-lg-6  col-xs-12"
+                      },
+                      [
+                        _c("div", { staticClass: "input-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "validate",
+                                rawName: "v-validate",
+                                value: "required",
+                                expression: "'required'"
+                              },
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.password,
+                                expression: "password"
+                              }
+                            ],
+                            staticClass: "form-control border",
+                            class: { "is-invalid": _vm.errors.has("password") },
+                            attrs: {
+                              name: "password",
+                              type: "password",
+                              placeholder: "Password"
+                            },
+                            domProps: { value: _vm.password },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.password = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.has("password")
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(_vm.errors.first("password")) +
+                                    "\n                            "
+                                )
+                              ])
+                            : _vm._e()
+                        ])
                       ]
                     )
                   ]),
@@ -100565,9 +100809,9 @@ var render = function() {
                           _vm.errors.has("name")
                             ? _c("div", { staticClass: "invalid-feedback" }, [
                                 _vm._v(
-                                  "\n                                " +
+                                  "\n                                   " +
                                     _vm._s(_vm.errors.first("name")) +
-                                    "\n                            "
+                                    "\n                               "
                                 )
                               ])
                             : _vm._e()
@@ -100619,65 +100863,9 @@ var render = function() {
                           _vm.errors.has("phone")
                             ? _c("div", { staticClass: "invalid-feedback" }, [
                                 _vm._v(
-                                  "\n                                " +
+                                  "\n                                   " +
                                     _vm._s(_vm.errors.first("phone")) +
-                                    "\n                            "
-                                )
-                              ])
-                            : _vm._e()
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-row" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "form-group col-md-12 col-sm-12 col-lg-12 col-xs-12"
-                      },
-                      [
-                        _c("div", { staticClass: "input-group" }, [
-                          _c("textarea", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.address,
-                                expression: "address"
-                              },
-                              {
-                                name: "validate",
-                                rawName: "v-validate",
-                                value: "required",
-                                expression: "'required'"
-                              }
-                            ],
-                            staticClass: "form-control border",
-                            class: { "is-invalid": _vm.errors.has("address") },
-                            attrs: {
-                              name: "address",
-                              type: "text",
-                              placeholder: "Address"
-                            },
-                            domProps: { value: _vm.address },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.address = $event.target.value
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm.errors.has("address")
-                            ? _c("div", { staticClass: "invalid-feedback" }, [
-                                _vm._v(
-                                  "\n                                " +
-                                    _vm._s(_vm.errors.first("address")) +
-                                    "\n                            "
+                                    "\n                               "
                                 )
                               ])
                             : _vm._e()
@@ -100712,10 +100900,10 @@ var render = function() {
                             ],
                             staticClass: "form-control border",
                             class: {
-                              "is-invalid": _vm.errors.has("price_range")
+                              "is-invalid": _vm.errors.has("price range")
                             },
                             attrs: {
-                              name: "price",
+                              name: "price range",
                               type: "text",
                               placeholder: "Price Range exp($,$$,$$$..)"
                             },
@@ -100730,11 +100918,11 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          _vm.errors.has("price_range")
+                          _vm.errors.has("price range")
                             ? _c("div", { staticClass: "invalid-feedback" }, [
                                 _vm._v(
                                   "\n                                " +
-                                    _vm._s(_vm.errors.first("price_range")) +
+                                    _vm._s(_vm.errors.first("price range")) +
                                     "\n                            "
                                 )
                               ])
@@ -100814,17 +101002,7 @@ var render = function() {
                       [
                         _c("google-map", {
                           on: { geo_location: _vm.getGeoLocation }
-                        }),
-                        _vm._v(" "),
-                        _vm.errors.has("location")
-                          ? _c("div", { staticClass: "invalid-feedback" }, [
-                              _vm._v(
-                                "\n                            " +
-                                  _vm._s(_vm.errors.first("location")) +
-                                  "\n                        "
-                              )
-                            ])
-                          : _vm._e()
+                        })
                       ],
                       1
                     )
@@ -100904,15 +101082,15 @@ var render = function() {
                               attrs: {
                                 name: "parking",
                                 type: "radio",
-                                id: "inlineCheckbox1",
-                                value: "1"
+                                id: "inlineCheckbox1"
                               },
                               domProps: {
-                                checked: _vm._q(_vm.is_parking, "1")
+                                value: 1,
+                                checked: _vm._q(_vm.is_parking, 1)
                               },
                               on: {
                                 change: function($event) {
-                                  _vm.is_parking = "1"
+                                  _vm.is_parking = 1
                                 }
                               }
                             }),
@@ -100948,15 +101126,15 @@ var render = function() {
                               attrs: {
                                 name: "parking",
                                 type: "radio",
-                                id: "inlineCheckbox2",
-                                value: "0"
+                                id: "inlineCheckbox2"
                               },
                               domProps: {
-                                checked: _vm._q(_vm.is_parking, "0")
+                                value: 0,
+                                checked: _vm._q(_vm.is_parking, 0)
                               },
                               on: {
                                 change: function($event) {
-                                  _vm.is_parking = "0"
+                                  _vm.is_parking = 0
                                 }
                               }
                             }),
@@ -101009,11 +101187,24 @@ var render = function() {
                           },
                           [
                             _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.is_delivery,
+                                  expression: "is_delivery"
+                                }
+                              ],
                               staticClass: "form-check-input",
-                              attrs: {
-                                name: "delivery",
-                                type: "radio",
-                                value: "1"
+                              attrs: { name: "delivery", type: "radio" },
+                              domProps: {
+                                value: 1,
+                                checked: _vm._q(_vm.is_delivery, 1)
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.is_delivery = 1
+                                }
                               }
                             }),
                             _vm._v(" "),
@@ -101036,11 +101227,24 @@ var render = function() {
                           },
                           [
                             _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.is_delivery,
+                                  expression: "is_delivery"
+                                }
+                              ],
                               staticClass: "form-check-input",
-                              attrs: {
-                                name: "delivery",
-                                type: "radio",
-                                value: "0"
+                              attrs: { name: "delivery", type: "radio" },
+                              domProps: {
+                                value: 0,
+                                checked: _vm._q(_vm.is_delivery, 0)
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.is_delivery = 0
+                                }
                               }
                             }),
                             _vm._v(" "),
@@ -101092,11 +101296,24 @@ var render = function() {
                           },
                           [
                             _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.is_kids_corner,
+                                  expression: "is_kids_corner"
+                                }
+                              ],
                               staticClass: "form-check-input",
-                              attrs: {
-                                name: "is_kids_corner",
-                                type: "radio",
-                                value: "1"
+                              attrs: { name: "is_kids_corner", type: "radio" },
+                              domProps: {
+                                value: 1,
+                                checked: _vm._q(_vm.is_kids_corner, 1)
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.is_kids_corner = 1
+                                }
                               }
                             }),
                             _vm._v(" "),
@@ -101119,11 +101336,24 @@ var render = function() {
                           },
                           [
                             _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.is_kids_corner,
+                                  expression: "is_kids_corner"
+                                }
+                              ],
                               staticClass: "form-check-input",
-                              attrs: {
-                                name: "is_kids_corner",
-                                type: "radio",
-                                value: "0"
+                              attrs: { name: "is_kids_corner", type: "radio" },
+                              domProps: {
+                                value: 0,
+                                checked: _vm._q(_vm.is_kids_corner, 0)
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.is_kids_corner = 0
+                                }
                               }
                             }),
                             _vm._v(" "),
@@ -101175,11 +101405,24 @@ var render = function() {
                           },
                           [
                             _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.is_smoking_zone,
+                                  expression: "is_smoking_zone"
+                                }
+                              ],
                               staticClass: "form-check-input",
-                              attrs: {
-                                name: "is_smoking_zone",
-                                type: "radio",
-                                value: "1"
+                              attrs: { name: "is_smoking_zone", type: "radio" },
+                              domProps: {
+                                value: 1,
+                                checked: _vm._q(_vm.is_smoking_zone, 1)
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.is_smoking_zone = 1
+                                }
                               }
                             }),
                             _vm._v(" "),
@@ -101202,11 +101445,24 @@ var render = function() {
                           },
                           [
                             _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.is_smoking_zone,
+                                  expression: "is_smoking_zone"
+                                }
+                              ],
                               staticClass: "form-check-input",
-                              attrs: {
-                                name: "is_smoking_zone",
-                                type: "radio",
-                                value: "0"
+                              attrs: { name: "is_smoking_zone", type: "radio" },
+                              domProps: {
+                                value: 0,
+                                checked: _vm._q(_vm.is_smoking_zone, 0)
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.is_smoking_zone = 0
+                                }
                               }
                             }),
                             _vm._v(" "),
@@ -101258,11 +101514,24 @@ var render = function() {
                           },
                           [
                             _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.is_wifi,
+                                  expression: "is_wifi"
+                                }
+                              ],
                               staticClass: "form-check-input",
-                              attrs: {
-                                name: "is_wifi",
-                                type: "radio",
-                                value: "1"
+                              attrs: { name: "is_wifi", type: "radio" },
+                              domProps: {
+                                value: 1,
+                                checked: _vm._q(_vm.is_wifi, 1)
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.is_wifi = 1
+                                }
                               }
                             }),
                             _vm._v(" "),
@@ -101285,11 +101554,24 @@ var render = function() {
                           },
                           [
                             _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.is_wifi,
+                                  expression: "is_wifi"
+                                }
+                              ],
                               staticClass: "form-check-input",
-                              attrs: {
-                                name: "is_wifi",
-                                type: "radio",
-                                value: "0"
+                              attrs: { name: "is_wifi", type: "radio" },
+                              domProps: {
+                                value: 0,
+                                checked: _vm._q(_vm.is_wifi, 0)
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.is_wifi = 0
+                                }
                               }
                             }),
                             _vm._v(" "),
@@ -101341,11 +101623,24 @@ var render = function() {
                           },
                           [
                             _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.is_buffet,
+                                  expression: "is_buffet"
+                                }
+                              ],
                               staticClass: "form-check-input",
-                              attrs: {
-                                name: "is_buffet",
-                                type: "radio",
-                                value: "1"
+                              attrs: { name: "is_buffet", type: "radio" },
+                              domProps: {
+                                value: 1,
+                                checked: _vm._q(_vm.is_buffet, 1)
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.is_buffet = 1
+                                }
                               }
                             }),
                             _vm._v(" "),
@@ -101368,11 +101663,24 @@ var render = function() {
                           },
                           [
                             _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.is_buffet,
+                                  expression: "is_buffet"
+                                }
+                              ],
                               staticClass: "form-check-input",
-                              attrs: {
-                                name: "is_buffet",
-                                type: "radio",
-                                value: "0"
+                              attrs: { name: "is_buffet", type: "radio" },
+                              domProps: {
+                                value: 0,
+                                checked: _vm._q(_vm.is_buffet, 0)
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.is_buffet = 0
+                                }
                               }
                             }),
                             _vm._v(" "),

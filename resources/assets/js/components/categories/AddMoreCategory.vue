@@ -25,8 +25,10 @@
                     Enter at least 3 letters
                 </b-form-invalid-feedback>
                 <label for="icon">Icon:</label>
-                <input type="file" class="" id="customFile"
-                       name="upload report" ref="file"
+                <input type="file" class=""
+                       id="customFile"
+                       name="upload report"
+                       ref="file"
                        @change="changeTitle"
                 >
 

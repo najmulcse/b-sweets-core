@@ -8,7 +8,7 @@
                    <registration-form
 
                         url="{{ route('register.user') }}"
-                        user="{{ json_encode($user) }}">
+                        email="{{ $user->email }}">
                    </registration-form>
                 </div>
             </div>

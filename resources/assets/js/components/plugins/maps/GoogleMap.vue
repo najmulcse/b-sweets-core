@@ -2,18 +2,21 @@
     <div>
         <div class="input-group">
                 <gmap-autocomplete
-                        name="location"
+                        name="address"
+                        v-model="center.address"
                         @place_changed="setPlace"
                         class="form-control border"
                         v-validate="'required'"
-                        :class="{'is-invalid': errors.has('location')}"
-                        placeholder="Enter restaurant location"
-                        @change="addMarker">
+                        :class="{'is-invalid': errors.has('address')}"
+                        placeholder="Enter restaurant location">
 
                 </gmap-autocomplete>
             <span>
                 <button class="btn-primary" type="button" @click="addMarker">Search</button>
             </span>
+            <div class="invalid-feedback" v-if="errors.has('address')">
+                {{ errors.first('address') }}
+            </div>
         </div>
         <br>
         <gmap-map
@@ -38,10 +41,10 @@
             return {
                 // default to Montreal to keep it simple
                 // change this to whatever makes sense
-                center: { lat: 45.508, lng: -73.587, address: '' },
+                center: { lat: 45.508, lng: -73.587, address: "" },
                 markers: [],
                 places: [],
-                currentPlace: null
+                currentPlace: ""
             };
         },
 
