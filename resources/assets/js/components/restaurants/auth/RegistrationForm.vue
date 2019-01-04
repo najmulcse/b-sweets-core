@@ -70,7 +70,7 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                        <div class="form-group col-md-12 col-sm-12 col-lg-12 col-xs-12">
                             <div class="input-group">
                                 <input name="price"
                                        type="text"
@@ -78,55 +78,45 @@
                                        v-validate="'required'"
                                        v-model="price_range"
                                        class="form-control border"
-                                       placeholder="Price">
+                                       placeholder="Price Range exp($,$$,$$$..)">
                                 <div class="invalid-feedback" v-if="errors.has('price_range')">
                                     {{ errors.first('price_range') }}
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                            <div class="input-group">
-                                <input name="location"
-                                       type="text"
-                                       :class="{'is-invalid': errors.has('location')}"
-                                       v-validate="'required'"
-                                       v-model="location"
-                                       class="form-control border"
-                                       placeholder="Location">
-                                <div class="invalid-feedback" v-if="errors.has('location')">
-                                    {{ errors.first('location') }}
-                                </div>
-                            </div>
-                        </div>
                     </div>
+                       <div class="form-row">
+                           <div class="form-group col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                               <div class="input-group">
+                                   <open-hour
+                                           title="Open hour"
+                                   ></open-hour>
+                                   <div class="invalid-feedback" v-if="errors.has('open')">
+                                       {{ errors.first('open') }}
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="form-group col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                               <div class="input-group">
+                                   <close-hour
+                                           title="Close hour"
+                                   ></close-hour>
+                                   <div class="invalid-feedback" v-if="errors.has('close')">
+                                       {{ errors.first('close') }}
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
                     <div class="form-row">
-                        <div class="form-group col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                            <div class="input-group">
-                                <input name="open"
-                                       type="text"
-                                       :class="{'is-invalid': errors.has('open')}"
-                                       v-validate="'required'"
-                                       v-model="open"
-                                       class="form-control border"
-                                       placeholder="Open hour">
-                                <div class="invalid-feedback" v-if="errors.has('open')">
-                                    {{ errors.first('open') }}
-                                </div>
+                        <div class="form-group col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                            <google-map
+                            @geo_location="getGeoLocation">
+
+                            </google-map>
+                            <div class="invalid-feedback" v-if="errors.has('location')">
+                                {{ errors.first('location') }}
                             </div>
-                        </div>
-                        <div class="form-group col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                            <div class="input-group">
-                                <input name="close"
-                                       type="text"
-                                       :class="{'is-invalid': errors.has('close')}"
-                                       v-validate="'required'"
-                                       v-model="close"
-                                       class="form-control border"
-                                       placeholder="Close hour">
-                                <div class="invalid-feedback" v-if="errors.has('close')">
-                                    {{ errors.first('close') }}
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                     <div class="form-row">
@@ -252,14 +242,23 @@
                    </div>
                 </form>
             </div>
+            <p class="footer-text text-center">copyright © 2018 Bombay sweets.</p>
         </b-card>
-
     </div>
 </template>
 
 <script>
+    import GoogleMap from "../../plugins/maps/GoogleMap.vue";
+    import CloseHour from "../../plugins/times/CloseHour.vue";
+    import OpenHour from "../../plugins/times/OpenHour.vue";
+
     export default {
         props: ['url','user'],
+        components: {
+            GoogleMap,
+            CloseHour,
+            OpenHour
+        },
         data(){
             return {
                 step: 1,
@@ -270,8 +269,6 @@
                 phone: '',
                 address: '',
                 price_range: '',
-                latitude: '',
-                longitude: '',
                 open: '',
                 close: '',
                 is_parking: 0,
@@ -279,13 +276,22 @@
                 is_kids_corner: false,
                 is_smoking_zone: false,
                 is_wifi: false,
-                is_buffet: false
+                is_buffet: false,
+                center:{
+                    latitude: 0,
+                    longitude: 0,
+                }
             }
         },
         methods: {
             next(){
                 this.step = 2;
-                console.log(this.url);
+            },
+            getGeoLocation(position)
+            {
+                this.center = position;
+                this.address = this.center.address.formatted_address;
+                console.log(this.center.lat);
             },
             submit()
             {
@@ -297,8 +303,8 @@
                            formData.append('name', this.name);
                            formData.append('phone', this.phone);
                            formData.append('address', this.address);
-                           formData.append('latitude', this.latitude);
-                           formData.append('longitude', this.longitude);
+                           formData.append('latitude', this.center.latitude);
+                           formData.append('longitude', this.center.longitude);
                            formData.append('price_range', this.price_range);
                            formData.append('thumbnail', this.thumbnail);
                            formData.append('open', this.open);
@@ -324,6 +330,7 @@
         }
 
     }
+
 </script>
 
 <style>

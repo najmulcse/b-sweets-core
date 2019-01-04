@@ -14,8 +14,17 @@ import BootstrapVue from 'bootstrap-vue'
 import VeeValidate from 'vee-validate';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import * as VueGoogleMaps from "vue2-google-maps";
+import Vuetify from 'vuetify'
 
-
+import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
+Vue.use(Vuetify)
+Vue.use(VueGoogleMaps, {
+    load: {
+        key: "AIzaSyBcVQO3dxqUFjgjyWh51BKqD1Bj87-TgV8",
+        libraries: "places" // necessary for places input
+    }
+});
 Vue.use(BootstrapVue);
 Vue.use(VeeValidate);
 

@@ -14,6 +14,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('vendors/iconfonts/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/css/vendor.bundle.base.css') }}">
@@ -69,7 +70,16 @@
 <script src="{{ asset('js/dashboard.js') }}"></script>
 <!-- End custom js for this page-->
 <!-- Scripts -->
+{{--<script type="text/javascript" src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBcVQO3dxqUFjgjyWh51BKqD1Bj87-TgV8&amp;libraries=places'></script>--}}
+{{--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>--}}
+{{--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--}}
+{{--<script src="{{ asset('js/locationpicker.jquery.js') }}"></script>--}}
 <script src="{{ asset('js/app.js') }}"></script>
+<script>
+
+
+</script>
+
 </body>
 
 </html>
