@@ -22,6 +22,37 @@
                             >
                         </div>
                     </div>
+                       <div class="form-row">
+                           <div class="form-group col-md-6 col-sm-6 col-lg-6  col-xs-12">
+                               <div class="input-group">
+                                   <input name="email"
+                                          type="text"
+                                          class="form-control border"
+                                          :class="{'is-invalid': errors.has('email')}"
+                                          v-validate="'required|email'"
+                                          v-model="email"
+                                          placeholder="Restaurant Email">
+                                   <div class="invalid-feedback" v-if="errors.has('email')">
+                                       {{ errors.first('email') }}
+                                   </div>
+                               </div>
+                           </div>
+
+                           <div class="form-group col-md-6 col-sm-6 col-lg-6  col-xs-12">
+                               <div class="input-group">
+                                   <input name="password"
+                                          type="password"
+                                          :class="{'is-invalid': errors.has('password')}"
+                                          v-validate="'required'"
+                                          v-model="password"
+                                          class="form-control border"
+                                          placeholder="Password">
+                                   <div class="invalid-feedback" v-if="errors.has('password')">
+                                       {{ errors.first('password') }}
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-6 col-lg-6  col-xs-12">
                             <div class="input-group">
@@ -31,7 +62,7 @@
                                        :class="{'is-invalid': errors.has('name')}"
                                        v-validate="'required'"
                                        v-model="name"
-                                       placeholder="Name">
+                                       placeholder="Restaurant Name">
                                 <div class="invalid-feedback" v-if="errors.has('name')">
                                     {{ errors.first('name') }}
                                 </div>
@@ -265,6 +296,8 @@
                 step: 1,
                 submitting: false,
                 name: '',
+                email: '',
+                password: '',
                 thumbnail: '',
                 location: '',
                 phone: '',

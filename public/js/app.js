@@ -73230,6 +73230,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['url', 'user'],
@@ -73238,6 +73269,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             step: 1,
             submitting: false,
             name: '',
+            email: '',
+            password: '',
             thumbnail: '',
             location: '',
             phone: '',
@@ -73384,6 +73417,116 @@ var render = function() {
                               {
                                 name: "validate",
                                 rawName: "v-validate",
+                                value: "required|email",
+                                expression: "'required|email'"
+                              },
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.email,
+                                expression: "email"
+                              }
+                            ],
+                            staticClass: "form-control border",
+                            class: { "is-invalid": _vm.errors.has("email") },
+                            attrs: {
+                              name: "email",
+                              type: "text",
+                              placeholder: "Restaurant Email"
+                            },
+                            domProps: { value: _vm.email },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.email = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.has("email")
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                _vm._v(
+                                  "\n                                   " +
+                                    _vm._s(_vm.errors.first("email")) +
+                                    "\n                               "
+                                )
+                              ])
+                            : _vm._e()
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "form-group col-md-6 col-sm-6 col-lg-6  col-xs-12"
+                      },
+                      [
+                        _c("div", { staticClass: "input-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "validate",
+                                rawName: "v-validate",
+                                value: "required",
+                                expression: "'required'"
+                              },
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.password,
+                                expression: "password"
+                              }
+                            ],
+                            staticClass: "form-control border",
+                            class: { "is-invalid": _vm.errors.has("password") },
+                            attrs: {
+                              name: "password",
+                              type: "password",
+                              placeholder: "Password"
+                            },
+                            domProps: { value: _vm.password },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.password = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.has("password")
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                _vm._v(
+                                  "\n                                   " +
+                                    _vm._s(_vm.errors.first("password")) +
+                                    "\n                               "
+                                )
+                              ])
+                            : _vm._e()
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-row" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "form-group col-md-6 col-sm-6 col-lg-6  col-xs-12"
+                      },
+                      [
+                        _c("div", { staticClass: "input-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "validate",
+                                rawName: "v-validate",
                                 value: "required",
                                 expression: "'required'"
                               },
@@ -73399,7 +73542,7 @@ var render = function() {
                             attrs: {
                               name: "name",
                               type: "text",
-                              placeholder: "Name"
+                              placeholder: "Restaurant Name"
                             },
                             domProps: { value: _vm.name },
                             on: {
