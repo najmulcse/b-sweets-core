@@ -16,10 +16,19 @@
                                     fluid alt="Fluid image" />
                         </div>
                         <div class="form-group col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                            <input type="file" class="" id="customFile"
-                                   name="upload report" ref="file"
-                                   @change="changeTitle"
+                            <input type="file"
+                                   accept="*/image*"
+                                   id="customFile"
+                                   name="thumbnail"
+                                   ref="file"
+                                   class="form-control border"
+                                   :class="{'is-invalid': errors.has('thumbnail')}"
+                                   v-validate="'required'"
+                                   @change="changeThumbnail"
                             >
+                            <div class="invalid-feedback" v-if="errors.has('thumbnail')">
+                                {{ errors.first('thumbnail') }}
+                            </div>
                         </div>
                     </div>
                        <div class="form-row">
@@ -53,111 +62,97 @@
                                </div>
                            </div>
                        </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6 col-sm-6 col-lg-6  col-xs-12">
-                            <div class="input-group">
-                                <input name="name"
-                                       type="text"
-                                       class="form-control border"
-                                       :class="{'is-invalid': errors.has('name')}"
-                                       v-validate="'required'"
-                                       v-model="name"
-                                       placeholder="Restaurant Name">
-                                <div class="invalid-feedback" v-if="errors.has('name')">
-                                    {{ errors.first('name') }}
-                                </div>
-                            </div>
-                        </div>
+                       <div class="form-row">
+                           <div class="form-group col-md-6 col-sm-6 col-lg-6  col-xs-12">
+                               <div class="input-group">
+                                   <input name="name"
+                                          type="text"
+                                          class="form-control border"
+                                          :class="{'is-invalid': errors.has('name')}"
+                                          v-validate="'required'"
+                                          v-model="name"
+                                          placeholder="Name">
+                                   <div class="invalid-feedback" v-if="errors.has('name')">
+                                       {{ errors.first('name') }}
+                                   </div>
+                               </div>
+                           </div>
 
-                        <div class="form-group col-md-6 col-sm-6 col-lg-6  col-xs-12">
-                            <div class="input-group">
-                                <input name="phone"
-                                       type="text"
-                                       :class="{'is-invalid': errors.has('phone')}"
-                                       v-validate="'required'"
-                                       v-model="phone"
-                                       class="form-control border"
-                                       placeholder="Phone">
-                                <div class="invalid-feedback" v-if="errors.has('phone')">
-                                    {{ errors.first('phone') }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                           <div class="form-group col-md-6 col-sm-6 col-lg-6  col-xs-12">
+                               <div class="input-group">
+                                   <input name="phone"
+                                          type="text"
+                                          :class="{'is-invalid': errors.has('phone')}"
+                                          v-validate="'required'"
+                                          v-model="phone"
+                                          class="form-control border"
+                                          placeholder="Phone">
+                                   <div class="invalid-feedback" v-if="errors.has('phone')">
+                                       {{ errors.first('phone') }}
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                    <!--<div class="form-row">-->
+                        <!--<div class="form-group col-md-12 col-sm-12 col-lg-12 col-xs-12">-->
+                            <!--<div class="input-group">-->
+                                <!--<textarea name="address"-->
+                                          <!--type="text"-->
+                                          <!--v-model="address"-->
+                                          <!--:class="{'is-invalid': errors.has('address')}"-->
+                                          <!--v-validate="'required'"-->
+                                          <!--class="form-control border"-->
+                                          <!--placeholder="Address"></textarea>-->
+                                <!--<div class="invalid-feedback" v-if="errors.has('address')">-->
+                                    <!--{{ errors.first('address') }}-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
                     <div class="form-row">
                         <div class="form-group col-md-12 col-sm-12 col-lg-12 col-xs-12">
                             <div class="input-group">
-                                <textarea name="address"
-                                          type="text"
-                                          v-model="address"
-                                          :class="{'is-invalid': errors.has('address')}"
-                                          v-validate="'required'"
-                                          class="form-control border"
-                                          placeholder="Address"></textarea>
-                                <div class="invalid-feedback" v-if="errors.has('address')">
-                                    {{ errors.first('address') }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                            <div class="input-group">
-                                <input name="price"
+                                <input name="price range"
                                        type="text"
-                                       :class="{'is-invalid': errors.has('price_range')}"
+                                       :class="{'is-invalid': errors.has('price range') }"
                                        v-validate="'required'"
                                        v-model="price_range"
                                        class="form-control border"
-                                       placeholder="Price">
-                                <div class="invalid-feedback" v-if="errors.has('price_range')">
-                                    {{ errors.first('price_range') }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                            <div class="input-group">
-                                <input name="location"
-                                       type="text"
-                                       :class="{'is-invalid': errors.has('location')}"
-                                       v-validate="'required'"
-                                       v-model="location"
-                                       class="form-control border"
-                                       placeholder="Location">
-                                <div class="invalid-feedback" v-if="errors.has('location')">
-                                    {{ errors.first('location') }}
+                                       placeholder="Price Range exp($,$$,$$$..)">
+                                <div class="invalid-feedback" v-if="errors.has('price range')">
+                                    {{ errors.first('price range') }}
                                 </div>
                             </div>
                         </div>
                     </div>
+                       <div class="form-row">
+                           <div class="form-group col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                               <div class="input-group">
+                                   <open-hour
+                                           title="Open hour"
+                                   ></open-hour>
+                                   <div class="invalid-feedback" v-if="errors.has('open')">
+                                       {{ errors.first('open') }}
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="form-group col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                               <div class="input-group">
+                                   <close-hour
+                                           title="Close hour"
+                                   ></close-hour>
+                                   <div class="invalid-feedback" v-if="errors.has('close')">
+                                       {{ errors.first('close') }}
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
                     <div class="form-row">
-                        <div class="form-group col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                            <div class="input-group">
-                                <input name="open"
-                                       type="text"
-                                       :class="{'is-invalid': errors.has('open')}"
-                                       v-validate="'required'"
-                                       v-model="open"
-                                       class="form-control border"
-                                       placeholder="Open hour">
-                                <div class="invalid-feedback" v-if="errors.has('open')">
-                                    {{ errors.first('open') }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                            <div class="input-group">
-                                <input name="close"
-                                       type="text"
-                                       :class="{'is-invalid': errors.has('close')}"
-                                       v-validate="'required'"
-                                       v-model="close"
-                                       class="form-control border"
-                                       placeholder="Close hour">
-                                <div class="invalid-feedback" v-if="errors.has('close')">
-                                    {{ errors.first('close') }}
-                                </div>
-                            </div>
+                        <div class="form-group col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                            <google-map
+                            @geo_location="getGeoLocation">
+
+                            </google-map>
                         </div>
                     </div>
                     <div class="form-row">
@@ -183,7 +178,7 @@
                                            type="radio"
                                            id="inlineCheckbox1"
                                            v-model="is_parking"
-                                           value="1">
+                                           v-bind:value="1">
                                    <label class="form-check-label" for="inlineCheckbox1">Yes</label>
                                </div>
                                <div class="form-check form-check-flat mt-0 form-check-inline">
@@ -191,7 +186,7 @@
                                           name="parking"
                                           type="radio"
                                           id="inlineCheckbox2"
-                                          value="0"
+                                          v-bind:value="0"
                                           v-model="is_parking">
                                    <label class="form-check-label" for="inlineCheckbox2">No</label>
                                </div>
@@ -203,11 +198,19 @@
                            </div>
                            <div class="form-group col-md-6 col-sm-6 col-lg-6 col-xs-6">
                                <div class="form-check-flat mt-0 form-check-inline">
-                                   <input class="form-check-input" name="delivery" type="radio" value="1">
+                                   <input class="form-check-input"
+                                          name="delivery"
+                                          type="radio"
+                                          v-model="is_delivery"
+                                          v-bind:value="1">
                                    <label class="form-check-label" for="inlineCheckbox1">Yes</label>
                                </div>
                                <div class="form-check form-check-flat mt-0 form-check-inline">
-                                   <input class="form-check-input" name="delivery" type="radio" value="0">
+                                   <input class="form-check-input"
+                                          name="delivery"
+                                          type="radio"
+                                          v-model="is_delivery"
+                                          v-bind:value="0">
                                    <label class="form-check-label" for="inlineCheckbox2">No</label>
                                </div>
                            </div>
@@ -218,11 +221,19 @@
                            </div>
                            <div class="form-group col-md-6 col-sm-6 col-lg-6 col-xs-6">
                                <div class="form-check-flat mt-0 form-check-inline">
-                                   <input class="form-check-input" name="is_kids_corner" type="radio" value="1">
+                                   <input class="form-check-input"
+                                          name="is_kids_corner"
+                                          type="radio"
+                                          v-model="is_kids_corner"
+                                          v-bind:value="1">
                                    <label class="form-check-label" for="kids_corner">Yes</label>
                                </div>
                                <div class="form-check form-check-flat mt-0 form-check-inline">
-                                   <input class="form-check-input" name="is_kids_corner" type="radio"value="0">
+                                   <input class="form-check-input"
+                                          name="is_kids_corner"
+                                          type="radio"
+                                          v-model="is_kids_corner"
+                                          v-bind:value="0">
                                    <label class="form-check-label" for="kids_corner">No</label>
                                </div>
                            </div>
@@ -233,11 +244,19 @@
                            </div>
                            <div class="form-group col-md-6 col-sm-6 col-lg-6 col-xs-6">
                                <div class="form-check-flat mt-0 form-check-inline">
-                                   <input class="form-check-input" name="is_smoking_zone" type="radio" value="1">
+                                   <input class="form-check-input"
+                                          name="is_smoking_zone"
+                                          type="radio"
+                                          v-model="is_smoking_zone"
+                                          v-bind:value="1">
                                    <label class="form-check-label" for="smoking_zone">Yes</label>
                                </div>
                                <div class="form-check form-check-flat mt-0 form-check-inline">
-                                   <input class="form-check-input" name="is_smoking_zone" type="radio"value="0">
+                                   <input class="form-check-input"
+                                          name="is_smoking_zone"
+                                          type="radio"
+                                          v-model="is_smoking_zone"
+                                          v-bind:value="0">
                                    <label class="form-check-label" for="smoking_zone">No</label>
                                </div>
                            </div>
@@ -248,11 +267,19 @@
                            </div>
                            <div class="form-group col-md-6 col-sm-6 col-lg-6 col-xs-6">
                                <div class="form-check-flat mt-0 form-check-inline">
-                                   <input class="form-check-input" name="is_wifi" type="radio" value="1">
+                                   <input class="form-check-input"
+                                          name="is_wifi"
+                                          type="radio"
+                                          v-model="is_wifi"
+                                          v-bind:value="1">
                                    <label class="form-check-label" for="wifi">Yes</label>
                                </div>
                                <div class="form-check form-check-flat mt-0 form-check-inline">
-                                   <input class="form-check-input" name="is_wifi" type="radio"value="0">
+                                   <input class="form-check-input"
+                                          name="is_wifi"
+                                          type="radio"
+                                          v-model="is_wifi"
+                                          v-bind:value="0">
                                    <label class="form-check-label" for="wifi">No</label>
                                </div>
                            </div>
@@ -263,11 +290,19 @@
                            </div>
                            <div class="form-group col-md-6 col-sm-6 col-lg-6 col-xs-6">
                                <div class="form-check-flat mt-0 form-check-inline">
-                                   <input class="form-check-input" name="is_buffet" type="radio" value="1">
+                                   <input class="form-check-input"
+                                          name="is_buffet"
+                                          type="radio"
+                                          v-model="is_buffet"
+                                          v-bind:value="1">
                                    <label class="form-check-label" for="buffet">Yes</label>
                                </div>
                                <div class="form-check form-check-flat mt-0 form-check-inline">
-                                   <input class="form-check-input" name="is_buffet" type="radio"value="0">
+                                   <input class="form-check-input"
+                                          name="is_buffet"
+                                          type="radio"
+                                          v-model="is_buffet"
+                                          v-bind:value="0">
                                    <label class="form-check-label" for="buffet">No</label>
                                </div>
                            </div>
@@ -283,14 +318,23 @@
                    </div>
                 </form>
             </div>
+            <p class="footer-text text-center">copyright © 2018 Bombay sweets.</p>
         </b-card>
-
     </div>
 </template>
 
 <script>
+    import GoogleMap from "../../plugins/maps/GoogleMap.vue";
+    import CloseHour from "../../plugins/times/CloseHour.vue";
+    import OpenHour from "../../plugins/times/OpenHour.vue";
+
     export default {
-        props: ['url','user'],
+        props: ['url','email'],
+        components: {
+            GoogleMap,
+            CloseHour,
+            OpenHour
+        },
         data(){
             return {
                 step: 1,
@@ -303,22 +347,36 @@
                 phone: '',
                 address: '',
                 price_range: '',
-                latitude: '',
-                longitude: '',
-                open: '',
-                close: '',
+                open: '9AM',
+                close: '10PM',
                 is_parking: 0,
-                is_delivery: false,
-                is_kids_corner: false,
-                is_smoking_zone: false,
-                is_wifi: false,
-                is_buffet: false
+                is_delivery: 0,
+                is_kids_corner: 0,
+                is_smoking_zone: 0,
+                is_wifi: 0,
+                is_buffet: 0,
+                latitude: 0,
+                longitude: 0,
             }
         },
         methods: {
             next(){
-                this.step = 2;
-                console.log(this.url);
+
+                this.$validator.validate().then(result => {
+                    if (result) {
+                        this.step++;
+                    }
+                });
+
+            },
+            getGeoLocation(position)
+            {
+                this.center = position;
+                this.address = this.center.address;
+                this.latitude = this.center.lat;
+                this.longitude = this.center.lng;
+                console.log(this.center.lat);
+                console.log(this.email);
             },
             submit()
             {
@@ -328,6 +386,8 @@
                         this.submitting = true;
                        let formData = new FormData();
                            formData.append('name', this.name);
+                           formData.append('email', this.email);
+                           formData.append('password', this.password);
                            formData.append('phone', this.phone);
                            formData.append('address', this.address);
                            formData.append('latitude', this.latitude);
@@ -340,7 +400,7 @@
 
                         axios.post(this.url, formData,{headers: {'Content-Type': 'multipart/form-data'}})
                             .then(response => {
-                                console.log(response);
+                                console.log(JSON.parse(response.data));
                             }).catch(errors => {
 
                         });
@@ -349,14 +409,15 @@
                 });
             },
             back(){
-              this.step = 1;
+              this.step--;
             },
-            changeTitle() {
+            changeThumbnail() {
                 this.thumbnail = this.$refs.file.files[0];
             },
         }
 
     }
+
 </script>
 
 <style>
